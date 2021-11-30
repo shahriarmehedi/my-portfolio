@@ -4,10 +4,11 @@ import { Typewriter } from 'react-simple-typewriter'
 
 const Banner = () => {
     return (
-        <div id="home" style={{ backgroundImage: `url(${bgBanner})`, backgroundSize: "cover" }} className="h-screen bg-blue-500 text-white text-center">
-            <div className=" pt-64 lg:pt-96">
-                <h1 className="text-xl lg:text-3xl">I'm <span className="text-green-400">Md. Shahriar Mehedi</span> </h1>
-                <h2 className="text-3xl  lg:text-6xl font-bold pt-8 mb-16"><span>
+        <div id="home" style={{ backgroundImage: `url(${bgBanner})`, backgroundSize: "cover" }} className="h-screen bg-blue-500 text-white text-center lg:text-left ">
+            <div className=" pt-64 lg:pt-80 lg:w-2/3 mx-auto">
+                <h1 className="text-xl lg:text-3xl pb-5 font-thin">HELLO THERE </h1>
+                <h1 className="text-2xl lg:text-6xl font-bold">I'm <span className="text-green-400">Md. Shahriar Mehedi</span> </h1>
+                <h2 className="text-2xl  lg:text-5xl font-bold pt-5 mb-16"><span>
                     <Typewriter
                         loop
                         cursor
