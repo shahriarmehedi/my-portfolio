@@ -91,7 +91,7 @@ const Projects = () => {
 
 
                     <TabPanel id="Javascript">
-                        <h2 className="mt-10 mb-10 text-green-400 text-2xl font-semibold">Projects using html, css & Javascript</h2>
+                        <h2 className="mt-10 mb-10 text-green-400 text-2xl font-semibold w-11/12 mx-auto">Projects using html, css & Javascript</h2>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
 
                             {
@@ -132,7 +132,7 @@ const Projects = () => {
 
 
                     <TabPanel id="React">
-                        <h2 className="mt-10 mb-10 text-green-400 text-2xl font-semibold">Projects using Javascript library React</h2>
+                        <h2 className="mt-10 mb-10 text-green-400 text-2xl font-semibold">Projects using React</h2>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
 
                             {
@@ -171,7 +171,7 @@ const Projects = () => {
 
 
                     <TabPanel id="Fullstack">
-                        <h2 className="mt-10 mb-10 text-green-400 text-2xl font-semibold">Fullstack Projects using MERN stack</h2>
+                        <h2 className="mt-10 mb-10 text-green-400 text-2xl font-semibold w-5/6 mx-auto">Fullstack Projects using MERN stack</h2>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
 
                             {
