@@ -1,18 +1,20 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import About from './pages/About/About';
-import Banner from './pages/Banner/Banner';
-import Contact from './pages/Contact/Contact';
-import Projects from './pages/Projects/Projects';
-import Header from './pages/shared/Header';
+import Home from './pages/Home/Home';
+import ProjectDetails from './pages/ProjectDetails/ProjectDetails';
+
 
 function App() {
   return (
     <div className="App">
-      <Header></Header>
-      <Banner></Banner>
-      <About></About>
-      <Projects></Projects>
-      <Contact></Contact>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects/:projectId" element={<ProjectDetails />} />
+
+          <Route path="*" element={<main style={{ padding: "1rem" }}><p>404 Nothing Found</p></main>} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

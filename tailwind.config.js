@@ -1,4 +1,7 @@
-module.exports = {
+const withAnimations = require('animated-tailwindcss');
+
+
+module.exports = withAnimations({
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -15,4 +18,4 @@ module.exports = {
     themes: false,
     rtl: false,
   },
-}
+})

@@ -6,8 +6,9 @@ const About = () => {
     return (
         <div id="about" className=" pb-36 bg-1 text-white ">
             <div className="container mx-auto">
-                <h1 className=" py-24 text-4xl font-bold">About Me</h1>
-                <div className="flex items-center flex-col lg:flex-row w-11/12 mx-auto bg-2 py-10 px-3 lg:p-16 rounded-box lg:border-l-8 border-gray-400">
+                <h1 className=" pt-24 pb-5 text-4xl font-bold ">About Me</h1>
+                <hr className="py-1 bg-green-400 w-32 border-none rounded mb-20 mx-auto" />
+                <div className=" flex items-center flex-col lg:flex-row w-11/12 mx-auto bg-2 py-10 px-3 lg:p-16 rounded-box lg:border-l-8 border-gray-400">
                     <div className="lg:w-1/3">
                         <img className=" h-40 mx-auto lg:h-80 border-8 border-gray-700 rounded-full" src={my_photo} alt="" />
                     </div>

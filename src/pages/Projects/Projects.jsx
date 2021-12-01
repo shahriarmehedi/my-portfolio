@@ -1,24 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './Projects.css';
-import jadoo from '../../../src/assets/images/projectImages/jadoo.png'
-import copaAmerica from '../../../src/assets/images/projectImages/copa-america.png'
-import bookArchive from '../../../src/assets/images/projectImages/bppk-archive.png'
-// import droneCraft from '../../../src/assets/images/projectImages/droneCraft.png'
-// import expressTrip from '../../../src/assets/images/projectImages/Express-trip.png'
-// import gymnesia from '../../../src/assets/images/projectImages/gymnesia.png'
-// import hireWebDev from '../../../src/assets/images/projectImages/Hire-Web-Dev.png'
-// import metroCoder from '../../../src/assets/images/projectImages/MetroCoder.png'
-// import panda from '../../../src/assets/images/projectImages/panda.png'
-import superStore from '../../../src/assets/images/projectImages/super-store.png'
+import { NavLink } from 'react-router-dom';
 
 const Projects = () => {
+
+    const [projects, setProjects] = useState([]);
+
+    useEffect(() => {
+        fetch('/projectData.json')
+            .then(res => res.json())
+            .then(data => setProjects(data))
+
+    }, [])
+
+    if (projects.length === 0) {
+        return (
+            <div className="bg-2 text-white py-5">
+                <h1 className=" py-24 text-4xl font-bold">My Projects</h1>
+                <h2 className="text-xl my-7">Loading Projects..</h2>
+                <div className="flex justify-center items-center">
+                    <div
+                        className="
+            loader
+            ease-linear
+            rounded-full
+            border-8 border-t-8 border-gray-200
+            h-32
+            w-32"
+                    ></div>
+                </div>
+            </div>
+        )
+    }
+
+
+
+
     return (
         <div id="projects" className=" bg-2 text-white pb-20 pt-10">
             <div className="container mx-auto">
-                <h1 className=" py-24 text-4xl font-bold">My Projects</h1>
+                <h1 className=" pt-24 pb-5 text-4xl font-bold ">My Projects</h1>
+                <hr className="py-1 bg-green-400 w-32 border-none rounded mb-20 mx-auto" />
                 <Tabs>
-                    <TabList>
+                    <TabList className="w-11/12 lg:w-full mx-auto">
                         <Tab>html</Tab>
                         <Tab>Javascript</Tab>
                         <Tab>React</Tab>
@@ -26,61 +51,38 @@ const Projects = () => {
                         <Tab>All Projects</Tab>
                     </TabList>
 
-                    <TabPanel>
+                    <TabPanel id="html">
                         <h2 className="mt-10 mb-10 text-green-400 text-2xl font-semibold">Projects using html & css only</h2>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
 
-                            {/* Single Project */}
-                            <div className="grid grid-cols-1 lg:grid-cols-2 mt-10 bg-3 w-5/6 lg:w-full mx-auto rounded-box py-10 lg:pl-10">
-                                <div>
-                                    <img className=" mx-auto rounded-lg border-8 mb-5 lg:mb-0 border-gray-400 h-96" src={jadoo} alt="" />
-                                </div>
-                                <div>
-                                    <h2 className="pl-5 text-xl mb-2 font-semibold">
-                                        Project: <span className="text-green-400">Jadoo Tour</span>
-                                    </h2>
-                                    <h2>
-                                        Technology Used:
-                                    </h2>
-                                    <div className="mt-5">
-                                        <button className="px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1"> html</button>
-                                        <button className="px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1"> css</button>
+                            {
+                                projects.filter(htmlProjects => htmlProjects.projectCategory === "html").map(myHtmlProjects =>
+                                    <div key={myHtmlProjects.projectId} className="animate-bounceIn animate-animated grid grid-cols-1 lg:grid-cols-2 bg-3 w-11/12 lg:w-full mx-auto rounded-box pt-5 pb-10 lg:py-10 lg:pl-10">
+                                        <div>
+                                            <img className=" transform transition duration-300 hover:scale-125 mx-auto w-11/12 lg:w-full rounded-lg border-8 mb-5 lg:mb-0 border-gray-400 h-96" src={myHtmlProjects.projectIMG} alt="" />
+                                        </div>
+                                        <div>
+                                            <h2 className=" text-xl mb-2 font-semibold">
+                                                Project: <span className="text-green-400"> {myHtmlProjects.projectName} </span>
+                                            </h2>
+                                            <p className="text-sm mb-4 text-green-400 font-light">{myHtmlProjects.projectType}</p>
+                                            <h2>
+                                                Technology Used:
+                                            </h2>
+                                            <div className="mt-5">
+                                                <button className=" transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">html</button>
+                                                <button className="transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">css</button>
+                                            </div>
+                                            <h3 className="text-gray-300 w-5/6 mx-auto mt-10">
+                                                {myHtmlProjects.projectDescription}
+                                            </h3>
+                                            <div className=" mt-16">
+                                                <NavLink to={`/projects/${myHtmlProjects.projectId}`} className="px-5 mx-2 text-gray-900 py-2 rounded bg-green-400 hover:bg-gray-700 hover:text-white transition duration-300 animate-infinite " >View Details</NavLink>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <h3 className="text-gray-300 w-5/6 mx-auto mt-10">
-                                        This is a tourism related website which is created with html & vanilla css only. This site is a mobile  responsive website.
-                                    </h3>
-                                    <div className=" mt-16">
-                                        <a target="_blank" rel="noreferrer" href="https://shahriarmehedi.github.io/travel-css-responsive/" className="px-3 mx-2 text-gray-900 py-2 rounded bg-green-400 hover:bg-gray-700 hover:text-white transition duration-300">Live Site</a>
-                                        <a target="_blank" rel="noreferrer" href="https://github.com/shahriarmehedi/travel-css-responsive" className="px-3 mx-2 text-gray-900 py-2 rounded bg-green-400 hover:bg-gray-700 hover:text-white transition duration-300">Source Code</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Single Project */}
-                            <div className="grid grid-cols-1 lg:grid-cols-2 mt-10 bg-3 w-5/6 lg:w-full mx-auto rounded-box py-10 lg:pl-10">
-                                <div>
-                                    <img className=" mx-auto rounded-lg border-8 mb-5 lg:mb-0 border-gray-400 h-96" src={copaAmerica} alt="" />
-                                </div>
-                                <div>
-                                    <h2 className="pl-5 text-xl mb-2 font-semibold">
-                                        Project: <span className="text-green-400">Copa America</span>
-                                    </h2>
-                                    <h2>
-                                        Technology Used:
-                                    </h2>
-                                    <div className="mt-5">
-                                        <button className="px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1"> html</button>
-                                        <button className="px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1"> css</button>
-                                    </div>
-                                    <h3 className="text-gray-300 w-5/6 mx-auto mt-10">
-                                        This is a football tournament related website which is created with html & vanilla css only. This site is also mobile  responsive.
-                                    </h3>
-                                    <div className=" mt-16">
-                                        <a target="_blank" rel="noreferrer" href="https://shahriarmehedi.github.io/copa-america-bootstrap-landing-page/" className="px-3 mx-2 text-gray-900 py-2 rounded bg-green-400 hover:bg-gray-700 hover:text-white transition duration-300">Live Site</a>
-                                        <a target="_blank" rel="noreferrer" href="https://github.com/shahriarmehedi/copa-america-bootstrap-landing-page" className="px-3 mx-2 text-gray-900 py-2 rounded bg-green-400 hover:bg-gray-700 hover:text-white transition duration-300">Source Code</a>
-                                    </div>
-                                </div>
-                            </div>
+                                )
+                            }
                         </div>
 
                     </TabPanel>
@@ -88,64 +90,40 @@ const Projects = () => {
 
 
 
-                    <TabPanel>
+                    <TabPanel id="Javascript">
                         <h2 className="mt-10 mb-10 text-green-400 text-2xl font-semibold">Projects using html, css & Javascript</h2>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
 
-                            {/* Single Project */}
-                            <div className="grid grid-cols-1 lg:grid-cols-2 mt-10 bg-3 w-5/6 lg:w-full mx-auto rounded-box py-10 lg:pl-10">
-                                <div>
-                                    <img className=" mx-auto rounded-lg border-8 mb-5 lg:mb-0 border-gray-400 h-96" src={bookArchive} alt="" />
-                                </div>
-                                <div>
-                                    <h2 className="pl-5 text-xl mb-2 font-semibold">
-                                        Project: <span className="text-green-400">Book Archive</span>
-                                    </h2>
-                                    <h2>
-                                        Technology Used:
-                                    </h2>
-                                    <div className="mt-5">
-                                        <button className="px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1"> html</button>
-                                        <button className="px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1"> css</button>
-                                        <button className="px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1"> JavaScript</button>
-                                        <button className="px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1"> Rest API</button>
+                            {
+                                projects.filter(javascriptProjects => javascriptProjects.projectCategory === "Javascript").map(myJavascriptProjects =>
+                                    <div key={myJavascriptProjects.projectId} className=" animate-bounceIn animate-animated grid grid-cols-1 lg:grid-cols-2 bg-3 w-11/12 lg:w-full mx-auto rounded-box pt-5 pb-10 lg:py-10 lg:pl-10">
+                                        <div>
+                                            <img className="transform transition duration-300 hover:scale-125 mx-auto w-11/12 lg:w-full rounded-lg border-8 mb-5 lg:mb-0 border-gray-400 h-96" src={myJavascriptProjects.projectIMG} alt="" />
+                                        </div>
+                                        <div>
+                                            <h2 className=" text-xl mb-2 font-semibold">
+                                                Project: <span className="text-green-400"> {myJavascriptProjects.projectName} </span>
+                                            </h2>
+                                            <p className="text-sm mb-4 text-green-400 font-light">{myJavascriptProjects.projectType}</p>
+                                            <h2>
+                                                Technology Used:
+                                            </h2>
+                                            <div className="mt-5">
+                                                <button className=" transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">html</button>
+                                                <button className=" transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">css</button>
+                                                <button className=" transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">Javascript</button>
+                                            </div>
+                                            <h3 className="text-gray-300 w-5/6 mx-auto mt-10">
+                                                {myJavascriptProjects.projectDescription}
+                                            </h3>
+                                            <div className=" mt-16">
+                                                <NavLink to={`/projects/${myJavascriptProjects.projectId}`} className="px-5 mx-2 text-gray-900 py-2 rounded bg-green-400 hover:bg-gray-700 hover:text-white transition duration-300" >View Details</NavLink>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <h3 className="text-gray-300 w-5/6 mx-auto mt-10">
-                                        This is a book searching website using a Rest API for finding any known books all over the world
-                                    </h3>
-                                    <div className=" mt-16">
-                                        <a target="_blank" rel="noreferrer" href="https://shahriar-books-archive.netlify.app/" className="px-3 mx-2 text-gray-900 py-2 rounded bg-green-400 hover:bg-gray-700 hover:text-white transition duration-300">Live Site</a>
-                                        <a target="_blank" rel="noreferrer" href="https://github.com/shahriarmehedi/book-archive-search-rest-api" className="px-3 mx-2 text-gray-900 py-2 rounded bg-green-400 hover:bg-gray-700 hover:text-white transition duration-300">Source Code</a>
-                                    </div>
-                                </div>
-                            </div>
+                                )
+                            }
 
-                            {/* Single Project */}
-                            <div className="grid grid-cols-1 lg:grid-cols-2 mt-10 bg-3 w-5/6 lg:w-full mx-auto rounded-box py-10 lg:pl-10">
-                                <div>
-                                    <img className=" mx-auto rounded-lg border-8 mb-5 lg:mb-0 border-gray-400 h-96" src={superStore} alt="" />
-                                </div>
-                                <div>
-                                    <h2 className="pl-5 text-xl mb-2 font-semibold">
-                                        Project: <span className="text-green-400">Super Store</span>
-                                    </h2>
-                                    <h2>
-                                        Technology Used:
-                                    </h2>
-                                    <div className="mt-5">
-                                        <button className="px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1"> html</button>
-                                        <button className="px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1"> css</button>
-                                        <button className="px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1"> JavaScript</button>
-                                    </div>
-                                    <h3 className="text-gray-300 w-5/6 mx-auto mt-10">
-                                        This is a store/e-commerce website shopping cart calculation using vanilla JavaScript.
-                                    </h3>
-                                    <div className=" mt-16">
-                                        <a target="_blank" rel="noreferrer" href="https://shahriar-super-store.netlify.app/" className="px-3 mx-2 text-gray-900 py-2 rounded bg-green-400 hover:bg-gray-700 hover:text-white transition duration-300">Live Site</a>
-                                        <a target="_blank" rel="noreferrer" href="https://github.com/shahriarmehedi/super-store-cart-project" className="px-3 mx-2 text-gray-900 py-2 rounded bg-green-400 hover:bg-gray-700 hover:text-white transition duration-300">Source Code</a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                     </TabPanel>
@@ -153,20 +131,124 @@ const Projects = () => {
 
 
 
-                    <TabPanel>
-                        <h2 className="mt-10 text-green-400 text-2xl font-semibold">Coming Soon</h2>
+                    <TabPanel id="React">
+                        <h2 className="mt-10 mb-10 text-green-400 text-2xl font-semibold">Projects using Javascript library React</h2>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+
+                            {
+                                projects.filter(reactProjects => reactProjects.projectCategory === "React" || reactProjects.projectCategory === "Fullstack").map(myReactProjects =>
+                                    <div key={myReactProjects.projectId} className=" animate-bounceIn animate-animated grid grid-cols-1 lg:grid-cols-2 bg-3 w-11/12 lg:w-full mx-auto rounded-box pt-5 pb-10 lg:py-10 lg:pl-10">
+                                        <div>
+                                            <img className="transform transition duration-300 hover:scale-125 mx-auto w-11/12 lg:w-full rounded-lg border-8 mb-5 lg:mb-0 border-gray-400 h-96" src={myReactProjects.projectIMG} alt="" />
+                                        </div>
+                                        <div>
+                                            <h2 className=" text-xl mb-2 font-semibold">
+                                                Project: <span className="text-green-400"> {myReactProjects.projectName} </span>
+                                            </h2>
+                                            <p className="text-sm mb-4 text-green-400 font-light">{myReactProjects.projectType}</p>
+                                            <h2>
+                                                Technology Used:
+                                            </h2>
+                                            <div className="mt-5">
+                                                <button className=" transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">JSX</button>
+                                                <button className=" transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">Javascript</button>
+                                                <button className=" transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">React</button>
+                                            </div>
+                                            <h3 className="text-gray-300 w-5/6 mx-auto mt-10">
+                                                {myReactProjects.projectDescription}
+                                            </h3>
+                                            <div className=" mt-16">
+                                                <NavLink to={`/projects/${myReactProjects.projectId}`} className="px-5 mx-2 text-gray-900 py-2 rounded bg-green-400 hover:bg-gray-700 hover:text-white transition duration-300" >View Details</NavLink>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            }
+
+                        </div>
                     </TabPanel>
 
 
 
-                    <TabPanel>
-                        <h2 className="mt-10 text-green-400 text-2xl font-semibold">Coming Soon</h2>
+                    <TabPanel id="Fullstack">
+                        <h2 className="mt-10 mb-10 text-green-400 text-2xl font-semibold">Fullstack Projects using MERN stack</h2>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+
+                            {
+                                projects.filter(fullstackProjects => fullstackProjects.projectCategory === "Fullstack").map(myFullstackProjects =>
+                                    <div key={myFullstackProjects.projectId} className=" animate-bounceIn animate-animated grid grid-cols-1 lg:grid-cols-2 bg-3 w-11/12 lg:w-full mx-auto rounded-box pt-5 pb-10 lg:py-10 lg:pl-10">
+                                        <div>
+                                            <img className="transform transition duration-300 hover:scale-125 mx-auto w-11/12 lg:w-full rounded-lg border-8 mb-5 lg:mb-0 border-gray-400 h-96" src={myFullstackProjects.projectIMG} alt="" />
+                                        </div>
+                                        <div>
+                                            <h2 className="text-xl mb-2 font-semibold">
+                                                Project: <span className="text-green-400"> {myFullstackProjects.projectName} </span>
+                                            </h2>
+                                            <p className="text-sm mb-4 text-green-400 font-light">{myFullstackProjects.projectType}</p>
+                                            <h2>
+                                                Technology Used:
+                                            </h2>
+                                            <div className="mt-5">
+                                                <button className=" transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">React</button>
+                                                <button className=" transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">Node.js</button>
+                                                <button className=" transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">Express</button>
+                                                <button className=" transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">Mongodb</button>
+                                            </div>
+                                            <h3 className="text-gray-300 w-5/6 mx-auto mt-10">
+                                                {myFullstackProjects.projectDescription}
+                                            </h3>
+                                            <div className=" mt-16">
+                                                <NavLink to={`/projects/${myFullstackProjects.projectId}`} className="px-5 mx-2 text-gray-900 py-2 rounded bg-green-400 hover:bg-gray-700 hover:text-white transition duration-300" >View Details</NavLink>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            }
+
+                        </div>
                     </TabPanel>
 
 
 
-                    <TabPanel>
-                        <h2 className="mt-10 text-green-400 text-2xl font-semibold">Coming Soon</h2>
+                    <TabPanel id="All Projects">
+                        <h2 className="mt-10 mb-10 text-green-400 text-2xl font-semibold">All noteworthy projects</h2>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+
+                            {
+                                projects.map(myAllProjects =>
+                                    <div key={myAllProjects.projectId} className=" animate-bounceIn animate-animated grid grid-cols-1 lg:grid-cols-2 bg-3 w-11/12 lg:w-full mx-auto rounded-box pt-5 pb-10 lg:py-10 lg:pl-10">
+                                        <div>
+                                            <img className="transform transition duration-300 hover:scale-125 mx-auto w-11/12 lg:w-full rounded-lg border-8 mb-5 lg:mb-0 border-gray-400 h-96" src={myAllProjects.projectIMG} alt="" />
+                                        </div>
+                                        <div>
+                                            <h2 className="text-xl mb-2 font-semibold">
+                                                Project: <span className="text-green-400"> {myAllProjects.projectName} </span>
+                                            </h2>
+                                            <p className="text-sm mb-4 text-green-400 font-light">{myAllProjects.projectType}</p>
+                                            <h2>
+                                                Technology Used:
+                                            </h2>
+                                            <div className="mt-5">
+                                                <button className="transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">html</button>
+                                                <button className="transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">css</button>
+                                                <button className="transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">Javascript</button>
+                                                <button className="transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">React</button>
+                                                <button className="transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">Node.js</button>
+                                                <button className="transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">Express</button>
+                                                <button className="transform transition cursor-default duration-300 hover:scale-125 px-3 font-light py-1 text-sm bg-gray-700 text-green-400 rounded-full m-1">Mongodb</button>
+                                            </div>
+                                            <h3 className="text-gray-300 w-5/6 mx-auto mt-10">
+                                                {myAllProjects.projectDescription}
+                                            </h3>
+                                            <div className=" mt-16">
+                                                <NavLink to={`/projects/${myAllProjects.projectId}`} className="px-5 mx-2 text-gray-900 py-2 rounded bg-green-400 hover:bg-gray-700 hover:text-white transition duration-300" >View Details</NavLink>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            }
+
+                        </div>
                     </TabPanel>
                 </Tabs>
             </div>
