@@ -33,6 +33,11 @@ const Header = () => {
                                 PROJECTS
 
                             </AnchorLink>
+                            <AnchorLink href="#blogs" className="btn hover:bg-gray-800 btn-ghost rounded-btn mx-3">
+
+                                BLOGS
+
+                            </AnchorLink>
                             <AnchorLink href="#contact" className="btn px-7 py-2 rounded bg-green-400 text-gray-900 hover:text-white transition duration-500 mx-3">
 
                                 CONTACT
@@ -60,6 +65,11 @@ const Header = () => {
                             <li>
                                 <AnchorLink href="#projects" className="btn bg-green-300 border-0 rounded-btn mx-3 my-1">
                                     PROJECTS
+                                </AnchorLink>
+                            </li>
+                            <li>
+                                <AnchorLink href="#blogs" className="btn bg-green-300 border-0 rounded-btn mx-3 my-1">
+                                    BLOGS
                                 </AnchorLink>
                             </li>
                             <li>
