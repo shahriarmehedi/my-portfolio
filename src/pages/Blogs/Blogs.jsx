@@ -15,7 +15,7 @@ const Blogs = () => {
 
     return (
         <div id="blogs" className=" bg-gray-900 text-white pb-32">
-            <h1 className=" pt-24 pb-5 text-4xl font-bold">Blogs</h1>
+            <h1 className=" pt-24 pb-5 text-4xl font-bold">My Blogs</h1>
             <hr className="py-1 bg-green-400 w-32 border-none rounded mb-20 mx-auto" />
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 container mx-auto">
                 {

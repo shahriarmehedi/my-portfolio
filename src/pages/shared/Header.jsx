@@ -51,7 +51,7 @@ const Header = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
                             </svg>
                         </button>
-                        <ul tabIndex="0" className="py-3 shadow-lg mt-72 menu dropdown-content text-gray-900 bg-green-400 rounded-lg w-52">
+                        <ul tabIndex="0" className="py-7 shadow-lg mt-96 menu dropdown-content text-gray-900 bg-green-400 rounded-lg w-52">
                             <li>
                                 <AnchorLink href="#home" className="btn bg-green-300 border-0 rounded-btn mx-3 my-1">
                                     HOME
